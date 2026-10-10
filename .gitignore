@@ -1,0 +1,39 @@
+
+# Java and Maven build output
+target/
+**/target/
+
+# IntelliJ IDEA local settings
+.idea/
+*.iml
+out/
+
+# VS Code local settings
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+
+# Local database files
+*.db
+*.mv.db
+*.trace.db
+
+# React dependencies and build output
+node_modules/
+traceiq-dashboard/dist/
+traceiq-dashboard/build/
+
+# Local AI model files
+models/
