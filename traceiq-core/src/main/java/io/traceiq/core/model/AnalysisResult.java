@@ -14,6 +14,8 @@ public class AnalysisResult {
     private final String provider;
     private final Double confidenceScore;
     private final Instant analyzedAt;
+    private final AnalysisStatus status;
+    private final String errorMessage;
 
     public AnalysisResult(
             String incidentId,
@@ -22,16 +24,21 @@ public class AnalysisResult {
             String suggestedFix,
             String provider,
             Double confidenceScore,
-            Instant analyzedAt) {
+            Instant analyzedAt,
+            AnalysisStatus status,
+            String errorMessage) {
 
         this.id = UUID.randomUUID().toString();
+
         this.incidentId = Objects.requireNonNull(
                 incidentId, "incidentId must not be null");
-        this.rootCause = Objects.requireNonNull(
-                rootCause, "rootCause must not be null");
-        this.explanation = Objects.requireNonNull(
-                explanation, "explanation must not be null");
+
+        this.rootCause = rootCause;
+
+        this.explanation = explanation;
+
         this.suggestedFix = suggestedFix;
+
         this.provider = Objects.requireNonNull(
                 provider, "provider must not be null");
 
@@ -42,8 +49,14 @@ public class AnalysisResult {
         }
 
         this.confidenceScore = confidenceScore;
+
         this.analyzedAt = Objects.requireNonNull(
                 analyzedAt, "analyzedAt must not be null");
+
+        this.status = Objects.requireNonNull(
+                status, "status must not be null");
+
+        this.errorMessage = errorMessage;
     }
 
     public String getId() {
@@ -76,5 +89,13 @@ public class AnalysisResult {
 
     public Instant getAnalyzedAt() {
         return analyzedAt;
+    }
+
+    public AnalysisStatus getStatus() {
+        return status;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 }

@@ -17,10 +17,13 @@ public class IncidentOccurrence {
             String stackTrace) {
 
         this.id = UUID.randomUUID().toString();
+
         this.incidentId = Objects.requireNonNull(
                 incidentId, "incidentId must not be null");
+
         this.occurredAt = Objects.requireNonNull(
                 occurredAt, "occurredAt must not be null");
+
         this.stackTrace = stackTrace;
     }
 

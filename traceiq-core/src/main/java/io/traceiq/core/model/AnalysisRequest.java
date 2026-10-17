@@ -18,9 +18,12 @@ public class AnalysisRequest {
 
         this.incidentId = Objects.requireNonNull(
                 incidentId, "incidentId must not be null");
+
         this.exceptionType = Objects.requireNonNull(
                 exceptionType, "exceptionType must not be null");
+
         this.message = message;
+
         this.evidence = List.copyOf(
                 Objects.requireNonNull(
                         evidence, "evidence must not be null"));

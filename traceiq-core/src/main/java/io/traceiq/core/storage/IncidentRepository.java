@@ -14,6 +14,8 @@ public interface IncidentRepository {
 
     Optional<Incident> findIncidentById(String incidentId);
 
+    Optional<Incident> findIncidentByFingerprint(String fingerprint);
+
     List<Incident> findAllIncidents();
 
     void saveOccurrence(IncidentOccurrence occurrence);

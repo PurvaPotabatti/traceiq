@@ -8,23 +8,31 @@ public class Evidence {
 
     private final String id;
     private final String incidentId;
-    private final String type;
+    private final String occurrenceId;
+    private final EvidenceType type;
     private final String content;
     private final Instant collectedAt;
 
     public Evidence(
             String incidentId,
-            String type,
+            String occurrenceId,
+            EvidenceType type,
             String content,
             Instant collectedAt) {
 
         this.id = UUID.randomUUID().toString();
+
         this.incidentId = Objects.requireNonNull(
                 incidentId, "incidentId must not be null");
+
+        this.occurrenceId = occurrenceId;
+
         this.type = Objects.requireNonNull(
                 type, "type must not be null");
+
         this.content = Objects.requireNonNull(
                 content, "content must not be null");
+
         this.collectedAt = Objects.requireNonNull(
                 collectedAt, "collectedAt must not be null");
     }
@@ -37,7 +45,11 @@ public class Evidence {
         return incidentId;
     }
 
-    public String getType() {
+    public String getOccurrenceId() {
+        return occurrenceId;
+    }
+
+    public EvidenceType getType() {
         return type;
     }
 
