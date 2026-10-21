@@ -13,6 +13,26 @@ public class Evidence {
     private final String content;
     private final Instant collectedAt;
 
+    private Evidence(
+            String id,
+            String incidentId,
+            String occurrenceId,
+            EvidenceType type,
+            String content,
+            Instant collectedAt) {
+
+        this.id = Objects.requireNonNull(id, "id must not be null");
+        this.incidentId = Objects.requireNonNull(
+                incidentId, "incidentId must not be null");
+        this.occurrenceId = occurrenceId;
+        this.type = Objects.requireNonNull(
+                type, "type must not be null");
+        this.content = Objects.requireNonNull(
+                content, "content must not be null");
+        this.collectedAt = Objects.requireNonNull(
+                collectedAt, "collectedAt must not be null");
+    }
+
     public Evidence(
             String incidentId,
             String occurrenceId,
@@ -35,6 +55,23 @@ public class Evidence {
 
         this.collectedAt = Objects.requireNonNull(
                 collectedAt, "collectedAt must not be null");
+    }
+
+    public static Evidence restore(
+            String id,
+            String incidentId,
+            String occurrenceId,
+            EvidenceType type,
+            String content,
+            Instant collectedAt) {
+
+        return new Evidence(
+                id,
+                incidentId,
+                occurrenceId,
+                type,
+                content,
+                collectedAt);
     }
 
     public String getId() {

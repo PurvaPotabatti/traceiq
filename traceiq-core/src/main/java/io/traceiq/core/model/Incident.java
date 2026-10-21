@@ -16,6 +16,37 @@ public class Incident {
     private long occurrenceCount;
     private IncidentStatus status;
 
+    private Incident(
+            String id,
+            String fingerprint,
+            String exceptionType,
+            String message,
+            Instant firstSeenAt,
+            Instant lastSeenAt,
+            long occurrenceCount,
+            IncidentStatus status) {
+
+        this.id = Objects.requireNonNull(id, "id must not be null");
+        this.fingerprint = Objects.requireNonNull(
+                fingerprint, "fingerprint must not be null");
+        this.exceptionType = Objects.requireNonNull(
+                exceptionType, "exceptionType must not be null");
+        this.message = message;
+        this.firstSeenAt = Objects.requireNonNull(
+                firstSeenAt, "firstSeenAt must not be null");
+        this.lastSeenAt = Objects.requireNonNull(
+                lastSeenAt, "lastSeenAt must not be null");
+        this.occurrenceCount = occurrenceCount;
+
+        if (occurrenceCount < 1) {
+            throw new IllegalArgumentException(
+                    "occurrenceCount must be at least 1");
+        }
+
+        this.status = Objects.requireNonNull(
+                status, "status must not be null");
+    }
+
     public Incident(
             String fingerprint,
             String exceptionType,
@@ -38,6 +69,27 @@ public class Incident {
         this.lastSeenAt = firstSeenAt;
         this.occurrenceCount = 1;
         this.status = IncidentStatus.OPEN;
+    }
+
+    public static Incident restore(
+            String id,
+            String fingerprint,
+            String exceptionType,
+            String message,
+            Instant firstSeenAt,
+            Instant lastSeenAt,
+            long occurrenceCount,
+            IncidentStatus status) {
+
+        return new Incident(
+                id,
+                fingerprint,
+                exceptionType,
+                message,
+                firstSeenAt,
+                lastSeenAt,
+                occurrenceCount,
+                status);
     }
 
     public String getId() {

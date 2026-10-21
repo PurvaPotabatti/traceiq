@@ -11,6 +11,20 @@ public class IncidentOccurrence {
     private final Instant occurredAt;
     private final String stackTrace;
 
+    private IncidentOccurrence(
+            String id,
+            String incidentId,
+            Instant occurredAt,
+            String stackTrace) {
+
+        this.id = Objects.requireNonNull(id, "id must not be null");
+        this.incidentId = Objects.requireNonNull(
+                incidentId, "incidentId must not be null");
+        this.occurredAt = Objects.requireNonNull(
+                occurredAt, "occurredAt must not be null");
+        this.stackTrace = stackTrace;
+    }
+
     public IncidentOccurrence(
             String incidentId,
             Instant occurredAt,
@@ -25,6 +39,19 @@ public class IncidentOccurrence {
                 occurredAt, "occurredAt must not be null");
 
         this.stackTrace = stackTrace;
+    }
+
+    public static IncidentOccurrence restore(
+            String id,
+            String incidentId,
+            Instant occurredAt,
+            String stackTrace) {
+
+        return new IncidentOccurrence(
+                id,
+                incidentId,
+                occurredAt,
+                stackTrace);
     }
 
     public String getId() {
