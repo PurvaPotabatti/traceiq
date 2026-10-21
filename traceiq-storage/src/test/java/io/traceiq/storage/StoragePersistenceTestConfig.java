@@ -1,0 +1,7 @@
+package io.traceiq.storage;
+
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class StoragePersistenceTestConfig {
+}

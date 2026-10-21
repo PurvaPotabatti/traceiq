@@ -1,0 +1,247 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 001-create-traceiq-tables
+      author: traceiq
+
+      changes:
+
+        - createTable:
+            tableName: traceiq_incident
+            columns:
+
+              - column:
+                  name: id
+                  type: VARCHAR(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: fingerprint
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+              - column:
+                  name: exception_type
+                  type: VARCHAR(500)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: message
+                  type: TEXT
+
+              - column:
+                  name: first_seen_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: last_seen_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: occurrence_count
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+
+
+        - createTable:
+            tableName: traceiq_incident_occurrence
+            columns:
+
+              - column:
+                  name: id
+                  type: VARCHAR(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: incident_id
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: occurred_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: stack_trace
+                  type: TEXT
+
+
+        - addForeignKeyConstraint:
+            baseTableName: traceiq_incident_occurrence
+            baseColumnNames: incident_id
+            referencedTableName: traceiq_incident
+            referencedColumnNames: id
+            constraintName: fk_traceiq_occurrence_incident
+
+
+        - createIndex:
+            tableName: traceiq_incident_occurrence
+            indexName: idx_traceiq_occurrence_incident_id
+            columns:
+              - column:
+                  name: incident_id
+
+
+        - createTable:
+            tableName: traceiq_evidence
+            columns:
+
+              - column:
+                  name: id
+                  type: VARCHAR(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: incident_id
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: occurrence_id
+                  type: VARCHAR(36)
+
+              - column:
+                  name: type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: content
+                  type: TEXT
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: collected_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+
+
+        - addForeignKeyConstraint:
+            baseTableName: traceiq_evidence
+            baseColumnNames: incident_id
+            referencedTableName: traceiq_incident
+            referencedColumnNames: id
+            constraintName: fk_traceiq_evidence_incident
+
+
+        - addForeignKeyConstraint:
+            baseTableName: traceiq_evidence
+            baseColumnNames: occurrence_id
+            referencedTableName: traceiq_incident_occurrence
+            referencedColumnNames: id
+            constraintName: fk_traceiq_evidence_occurrence
+
+
+        - createIndex:
+            tableName: traceiq_evidence
+            indexName: idx_traceiq_evidence_incident_id
+            columns:
+              - column:
+                  name: incident_id
+
+
+        - createIndex:
+            tableName: traceiq_evidence
+            indexName: idx_traceiq_evidence_occurrence_id
+            columns:
+              - column:
+                  name: occurrence_id
+
+
+        - createTable:
+            tableName: traceiq_analysis_result
+            columns:
+
+              - column:
+                  name: id
+                  type: VARCHAR(36)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: incident_id
+                  type: VARCHAR(36)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: root_cause
+                  type: TEXT
+
+              - column:
+                  name: explanation
+                  type: TEXT
+
+              - column:
+                  name: suggested_fix
+                  type: TEXT
+
+              - column:
+                  name: provider
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: confidence_score
+                  type: DOUBLE
+
+              - column:
+                  name: analyzed_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: error_message
+                  type: TEXT
+
+
+        - addForeignKeyConstraint:
+            baseTableName: traceiq_analysis_result
+            baseColumnNames: incident_id
+            referencedTableName: traceiq_incident
+            referencedColumnNames: id
+            constraintName: fk_traceiq_analysis_incident
+
+
+        - createIndex:
+            tableName: traceiq_analysis_result
+            indexName: idx_traceiq_analysis_incident_id
+            columns:
+              - column:
+                  name: incident_id

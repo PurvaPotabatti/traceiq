@@ -21,36 +21,36 @@
 
     <dependencies>
 
-        <!-- TraceIQ framework-independent core -->
+        <!-- TraceIQ core -->
         <dependency>
             <groupId>io.traceiq</groupId>
             <artifactId>traceiq-core</artifactId>
             <version>${project.version}</version>
         </dependency>
 
-        <!-- Spring Data JPA + Hibernate -->
+        <!-- Spring Data JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- Database schema/version management -->
+        <!-- Liquibase database migrations -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-liquibase</artifactId>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
         </dependency>
 
-        <!-- Test support -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- In-memory database for storage integration tests -->
+        <!-- H2 for storage integration tests -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Spring Boot test support -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
