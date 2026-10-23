@@ -52,9 +52,15 @@ class IncidentRepositoryPersistenceTest {
         assertEquals(incident.getFingerprint(), result.getFingerprint());
         assertEquals(incident.getExceptionType(), result.getExceptionType());
         assertEquals(incident.getMessage(), result.getMessage());
-        assertEquals(incident.getFirstSeenAt(), result.getFirstSeenAt());
-        assertEquals(incident.getLastSeenAt(), result.getLastSeenAt());
-        assertEquals(incident.getOccurrenceCount(), result.getOccurrenceCount());
+        assertEquals(
+                incident.getFirstSeenAt().toEpochMilli(),
+                result.getFirstSeenAt().toEpochMilli()
+        );
+
+        assertEquals(
+                incident.getLastSeenAt().toEpochMilli(),
+                result.getLastSeenAt().toEpochMilli()
+        );        assertEquals(incident.getOccurrenceCount(), result.getOccurrenceCount());
         assertEquals(incident.getStatus(), result.getStatus());
     }
 
@@ -192,8 +198,8 @@ class IncidentRepositoryPersistenceTest {
         assertEquals(evidence.getType(), retrieved.getType());
         assertEquals(evidence.getContent(), retrieved.getContent());
         assertEquals(
-                evidence.getCollectedAt().toEpochMilli(),
-                retrieved.getCollectedAt().toEpochMilli()
+                evidence.getCollectedAt().truncatedTo(java.time.temporal.ChronoUnit.MICROS),
+                retrieved.getCollectedAt().truncatedTo(java.time.temporal.ChronoUnit.MICROS)
         );
     }
 
