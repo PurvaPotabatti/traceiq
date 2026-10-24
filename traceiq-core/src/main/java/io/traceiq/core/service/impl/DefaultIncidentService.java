@@ -116,12 +116,6 @@ public class DefaultIncidentService implements IncidentService {
     private Optional<Incident> findIncidentByFingerprint(
             String fingerprint) {
 
-        return incidentRepository
-                .findAllIncidents()
-                .stream()
-                .filter(incident ->
-                        incident.getFingerprint()
-                                .equals(fingerprint))
-                .findFirst();
+        return incidentRepository.findIncidentByFingerprint(fingerprint);
     }
 }
