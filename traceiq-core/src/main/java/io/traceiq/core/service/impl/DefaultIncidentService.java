@@ -6,11 +6,14 @@ import io.traceiq.core.model.IncidentOccurrence;
 import io.traceiq.core.service.IncidentService;
 import io.traceiq.core.storage.IncidentRepository;
 
+import org.springframework.stereotype.Service;
+
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Service
 public class DefaultIncidentService implements IncidentService {
 
     private final IncidentRepository incidentRepository;
